@@ -76,7 +76,7 @@ class Main extends React.Component {
             })
           .then(response => {
             console.log(response);
-          })
+          });
 
     axios.
           get(
@@ -90,7 +90,7 @@ class Main extends React.Component {
 
               this.setState({tweets: response.data.data})
               console.log(this.state.tweets);
-            })
+            });
     e.preventDefault();
   }
 
@@ -128,19 +128,20 @@ deleteMessage () {
             Send
           </Button>
         </div>
+        { this.state.tweets.map(tweet => {
+          return (
+            <SnackbarContent
+              className={classes.snackbar}
+              message={
+                'I love candy. I love cookies. I love cupcakes. \
+                I love cheesecake. I love chocolate.'
+              }
+              action={this.deleteMessage}
+            />
+          )
+        })}
       </form>
-      { this.state.tweets.map(tweet => {
-        return (
-          <SnackbarContent
-            className={classes.snackbar}
-            message={
-              'I love candy. I love cookies. I love cupcakes. \
-              I love cheesecake. I love chocolate.'
-            }
-            action={this.deleteMessage}
-          />
-        )
-      })}
+
       </div>
     )
   }
