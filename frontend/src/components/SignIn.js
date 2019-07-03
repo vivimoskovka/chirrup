@@ -8,19 +8,21 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { CookiesProvider } from 'react-cookie';
+import backgroundImg from '../images/bg.jpg'
 
 /*eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU2MTMyNDY5NSwiZXhwIjoxNTYxNDExMDk1LCJhdWQiOiJodHRwczovL3lvdXJkb21haW4uY29tIiwiaXNzIjoiZmVhdGhlcnMiLCJzdWIiOiJhbm9ueW1vdXMiLCJqdGkiOiIwMTFhYjc5MS0zY2YyLTQwM2ItYmM5ZC1hMTU5MDZiZWNkMjEifQ.v7ZmD4N5FbDrgRmtjTwqRESEFIws2mVPHQV8JOCcLNc*/
 
 const styles = theme => ({
   button: {
   margin: theme.spacing(1),
-},
+  },
   input: {
     display: 'none',
   },
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    marginTop: 50
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -33,36 +35,38 @@ const styles = theme => ({
     width: 200,
   },
   main: {
-    width: '80%',
+    width: '100%',
+    height: 600,
     margin:'0 auto',
     paddingTop: 30,
-    display: 'flex',
-    flexDiraction: 'space-between'
-  },
-  signin: {
-    paddingTop: 30,
-    width: 400,
-    height: 400,
-    margin: '0 auto',
-    border: '1px solid lightgrey',
-    borderRadius: 3,
-    display: 'block'
-  },
-  registration: {
-    paddingTop: 30,
-    width: 400,
-    height: 400,
-    margin: '0 auto',
-    border: '1px solid lightgrey',
-    borderRadius: 3,
-    display: 'block'
+    backgroundImage: `url(${backgroundImg})`,
+    backgroundSize: 'cover'
   },
   button: {
     display: 'block',
-    margin: '0 auto'
+    margin: '0 auto',
+    marginTop: 30,
   },
   textField: {
-    width: 300
+    width: 300,
+    backgroundColor:'white'
+  },
+  signin_div: {
+    paddingTop: 30,
+    width: 400,
+    height: 400,
+    margin: '0 auto',
+    borderRadius: 3,
+    display: 'block',
+    background: 'white'
+  },
+  main_title: {
+    fontWeight: 100,
+    marginBottom: 0,
+    marginTop: 50
+  },
+  ballon_btn: {
+    marginTop: 10
   }
 });
 
@@ -76,7 +80,6 @@ constructor(props) {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 }
-
 
 handleEmailChange(e) {
     this.setState({email: e.target.value});
@@ -99,11 +102,13 @@ handleSubmit(e) {
         let token = response.data.accessToken;
         document.cookie = `token = ${token}`;
         let cookie = document.cookie;
-      } else {
-        console.log('wrong email or password');
+        let path = `/main/`;
+        this.props.history.push(path);
       }
-
-    });
+    })
+    .catch(error => {
+      alert(`Wrong password or email`);
+    })
   e.preventDefault();
 }
 
@@ -112,12 +117,8 @@ render() {
 
   return(
     <main className={classes.main}>
-    <h2 className={classes.main.title}>Don't have an account?</h2>
-    <Button className={classes.ballon_btn} color="secondary" size="medium" component={Link} to='registration'>
-      Click here
-    </Button>
       <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleSubmit}>
-        <div className={classes.registration_div}>
+        <div className={classes.signin_div}>
           <TextField
            id="outlined-email-input"
            label="Email"
@@ -141,8 +142,12 @@ render() {
            margin="normal"
            variant="outlined"
           />
-          <Button type='submit' variant="contained" color="primary" className='button'>
+        <Button type='submit' variant="contained" color="primary" className={classes.button}>
             Sign In
+          </Button>
+          <h2 className={classes.main_title}>Don't have an account?</h2>
+          <Button className={classes.ballon_btn} color="secondary" size="medium" component={Link} to='registration'>
+            Click here
           </Button>
         </div>
       </form>

@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { InputAdornment, withStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import backgroundImg from '../images/bg.jpg'
 
 
 const styles = theme => ({
   button: {
   margin: 5,
+  marginTop: 30,
 },
   input: {
     display: 'none',
@@ -17,6 +19,7 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    marginTop: 50
   },
   textField: {
     marginLeft: 5,
@@ -29,18 +32,21 @@ const styles = theme => ({
     width: 200,
   },
   main: {
-    width: '80%',
+    width: '100%',
+    height: 600,
     margin:'0 auto',
     paddingTop: 30,
+    backgroundImage: `url(${backgroundImg})`,
+    backgroundSize: 'cover'
   },
   registration_div: {
     paddingTop: 30,
     width: 400,
     height: 400,
     margin: '0 auto',
-    border: '1px solid lightgrey',
     borderRadius: 3,
-    display: 'block'
+    display: 'block',
+    background: 'white'
   },
   button: {
     display: 'block',
@@ -83,7 +89,14 @@ handleSubmit(e) {
     password: this.state.password,
     nickname: this.state.nickname
   })
-    .then(response => console.log(response))
+    .then(response => {
+      console.log(response)
+      if (response.status === 201) {
+        alert('Congratulations! Wellcome to our community')
+        let path = `/`;
+        this.props.history.push(path);
+      }
+    })
   e.preventDefault();
 }
 
@@ -127,8 +140,8 @@ render() {
           margin="normal"
           variant="outlined"
           />
-          <Button type='submit' variant="contained" color="primary" className='button'>
-            Registration
+        <Button type='submit' variant="contained" color="primary" className={classes.button}>
+            Sign Up
           </Button>
         </div>
       </form>
