@@ -1,9 +1,8 @@
 import axios from 'axios'
-import {Link} from 'react-router-dom';
 import React from 'react'
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import { InputAdornment, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import backgroundImg from '../images/bg.jpg'
 

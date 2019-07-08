@@ -1,15 +1,12 @@
 import React from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom';
 import cookie from 'react-cookies'
 
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import { InputAdornment, withStyles } from '@material-ui/core';
+import {withStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { instanceOf } from 'prop-types';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import deleteMessageImg from '../images/delete.png'
 
 
 const styles = theme => ({
@@ -89,7 +86,8 @@ const styles = theme => ({
     fontStyle: 'italic'
   },
   margin: {
-    marginBottom: 10,
+    marginTop: 10,
+    marginBottom:10,
     float: 'right'
   }
 });

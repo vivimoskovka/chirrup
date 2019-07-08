@@ -2,12 +2,10 @@ import axios from 'axios'
 import {Link} from 'react-router-dom';
 import React from 'react'
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { InputAdornment, withStyles } from '@material-ui/core';
-import MenuItem from '@material-ui/core/MenuItem';
+import {withStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { CookiesProvider } from 'react-cookie';
+
 import backgroundImg from '../images/bg.jpg'
 
 /*eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU2MTMyNDY5NSwiZXhwIjoxNTYxNDExMDk1LCJhdWQiOiJodHRwczovL3lvdXJkb21haW4uY29tIiwiaXNzIjoiZmVhdGhlcnMiLCJzdWIiOiJhbm9ueW1vdXMiLCJqdGkiOiIwMTFhYjc5MS0zY2YyLTQwM2ItYmM5ZC1hMTU5MDZiZWNkMjEifQ.v7ZmD4N5FbDrgRmtjTwqRESEFIws2mVPHQV8JOCcLNc*/
@@ -89,8 +87,6 @@ handlePasswordChange(e) {
   }
 
 handleSubmit(e) {
-  console.log("EMail: " + this.state.email);
-  console.log("Password: " + this.state.password);
   axios.post('http://localhost:3030/authentication', {
     email: this.state.email,
     password: this.state.password,
@@ -98,16 +94,16 @@ handleSubmit(e) {
   })
     .then(response => {
       console.log(response)
-      if (response.status === 201) {
-        let token = response.data.accessToken;
-        document.cookie = `token = ${token}`;
-        let cookie = document.cookie;
-        let path = `/main/`;
-        this.props.history.push(path);
-      }
+if (response.status ===201) {
+  let token = response.data.accessToken;
+  document.cookie = `token = ${token}`;
+  let cookie = document.cookie;
+  let path = `/main/`;
+  this.props.history.push(path);
+  }
     })
     .catch(error => {
-      alert(`Wrong password or email`);
+      alert('error')
     })
   e.preventDefault();
 }
@@ -123,7 +119,7 @@ render() {
            id="outlined-email-input"
            label="Email"
            className={classes.textField}
-           value={this.state.email}
+           value={this.state.email  || ''}
            onChange={this.handleEmailChange}
            type="email"
            name="email"
@@ -135,7 +131,7 @@ render() {
            id="outlined-password-input"
            label="Password"
            className={classes.textField}
-           value={this.state.password}
+           value={this.state.password  || ''}
            onChange={this.handlePasswordChange}
            type="password"
            autoComplete="current-password"
